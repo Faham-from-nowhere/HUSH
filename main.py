@@ -6,6 +6,7 @@ from datetime import datetime
 import numpy as np
 from sqlmodel import Field, Session, SQLModel, create_engine, select
 from contextlib import asynccontextmanager # NEW: Required for lifespan
+from fastapi.middleware.cors import CORSMiddleware
 
 # --- Pydantic Models (The "Contract") ---
 
@@ -79,6 +80,14 @@ app = FastAPI(
     description="Backend for the HUSH adaptive wellness coach, supporting (simulated) FL/DP.",
     version="0.1.0",
     lifespan=lifespan  # MODIFIED: Replaced @app.on_event
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"], # This is the key line
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 # --- API Endpoints ---

@@ -4,3 +4,4 @@ fastapi
 uvicorn[standard]
 numpy
 sqlmodel
+fastapi-cors
